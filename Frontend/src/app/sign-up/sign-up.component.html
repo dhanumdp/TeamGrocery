@@ -1,0 +1,75 @@
+<section class="grocery-section">
+  <div class="grocery-centered-content">
+    <div class="notification grocery-notification" [ngClass]="{ 'is-active': this.notifyFlag, 'is-success': this.notifyStatus, 'is-danger': !this.notifyStatus && this.notifyStatus !== undefined }">
+      <a class="delete"></a>
+      <p>{{this.notifyMsg}}</p>
+    </div>
+    <div class="grocery-content">
+      <div class="grocery-illustration">
+        <img class="grocery-image" src="../../../assets/shopping.png">
+      </div>
+      <div [formGroup]="signInForm" class="grocery-signin" *ngIf="this.signin">
+        <div class="grocery-title">welcome to grocery sos</div>
+        <div class="grocery-subtitle">Shop here while you are in home safely.</div>
+        <div class="grocery-input-group">
+          <div class="grocery-input-holder">
+            <div class="shade"></div>
+            <input formControlName="email" #email (keyup)="onMailKeyUp($event, signInForm.get('email').value)" class="input" type="text" placeholder="email" [ngClass]="{ 'has-value': this.hasValue(this.signInForm.get('email').value), 'is-danger': !this.validMail && this.validMail != undefined, 'is-success': this.validMail }">
+            <label for="email">Email</label>
+          </div>
+          <div class="grocery-input-holder">
+            <div class="shade"></div>
+            <!-- <input (keyup)="onSigninPasswordKeyUp($event, this.signInForm.get('password').value)" -->
+             <input formControlName="password" #password class="input" type="password" placeholder="Password" [ngClass]="{ 'has-value': this.hasValue(this.signInForm.get('password').value), 'is-success': strength !== passwdStrength.EMPTY && strength === passwdStrength.STRONG , 'is-warning': strength !== passwdStrength.EMPTY && strength === passwdStrength.MEDIUM, 'is-danger': strength !== passwdStrength.EMPTY && strength === passwdStrength.WEAK }">
+            <label for="password">Password</label>
+            <span>Forget?</span>
+          </div>
+          <div class="grocery-input-holder">
+            <button class="button" [disabled]="!email.value || !password.value" (click)="onSignIn()">Login<i class="fas fa-sign-in-alt"></i></button>
+          </div>
+        </div>
+      </div>
+      <div [formGroup]="signUpForm" class="grocery-signup" *ngIf="this.signup">
+        <div class="grocery-title">Register for An Account</div>
+        <div class="grocery-subtitle">Provide required details to register.</div>
+        <div class="grocery-input-group is-signup">
+          <div class="grocery-input-holder double">
+            <div class="grocery-input-double">
+              <input (keyup)="onFirstNameKeyUp($event, signUpForm.get('fname').value)" formControlName="fname" class="input" type="text" placeholder="Firstname" [ngClass]="{ 'has-value': this.hasValue(this.signUpForm.get('fname').value), 'is-success': this.validFname, 'is-danger': !this.validFname && this.validFname != undefined }">
+              <label for="firstname">FirstName</label>
+            </div>
+            <div class="grocery-input-double">
+              <input (keyup)="onLastNameKeyUp($event, signUpForm.get('lname').value)" formControlName="lname" class="input" type="text" placeholder="Lastname [optional]" [ngClass]="{ 'has-value': this.hasValue(this.signUpForm.get('lname').value), 'is-success': this.validLname }">
+              <label class="is-right" for="lastname">Lastname</label>
+            </div>
+          </div>
+          <div class="grocery-input-holder">
+            <input (keyup)="onWhatsappKeyUp($event, signUpForm.get('whatsapp').value)" formControlName="whatsapp" maxlength="10" class="input" type="text" placeholder="whatsapp no" [ngClass]="{ 'has-value': this.hasValue(this.signUpForm.get('whatsapp').value), 'is-success': this.validNo, 'is-danger': !this.validNo && this.validNo !== undefined }">
+            <label for="whatsapp">Whatsapp No</label>
+          </div>
+          <div class="grocery-input-holder">
+            <input (keyup)="onMailKeyUp($event, signUpForm.get('email').value)" formControlName="email" class="input" type="text" placeholder="E-Mail" [ngClass]="{ 'has-value': this.hasValue(this.signUpForm.get('email').value), 'is-danger': !this.validMail && this.validMail !== undefined, 'is-success': this.validMail }">
+            <label for="email">E-Mail</label>
+          </div>
+          <div class="grocery-input-holder double">
+            <div class="grocery-input-double">
+              <input (keyup)="onPasswordKeyUp($event, signUpForm.get('password').value)" formControlName="password" class="input" type="password" placeholder="Password" [ngClass]="{ 'has-value': this.hasValue(this.signUpForm.get('password').value), 'is-success': strength !== passwdStrength.EMPTY && strength === passwdStrength.STRONG , 'is-warning': strength !== passwdStrength.EMPTY && strength === passwdStrength.MEDIUM, 'is-danger': strength !== passwdStrength.EMPTY && strength === passwdStrength.WEAK }">
+              <label for="password">Password</label>
+            </div>
+            <div class="grocery-input-double">
+              <input (keyup)="onPasswordConfirm($event)" formControlName="confirm" class="input" type="password" placeholder="Confirm Password" [ngClass]="{ 'has-value': this.hasValue(this.signUpForm.get('confirm').value), 'is-success': this.validPass, 'is-danger': !this.validPass && this.validPass != undefined }">
+              <label class="is-right" for="confirm">Confirm Password</label>
+            </div>
+          </div>
+          <div class="grocery-input-holder">
+            <button [disabled]="this.validSignUp()" class="button" (click)="this.onSignUp()">Register<i class="fas fa-sign-in-alt"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grocery-end">
+      <p *ngIf="this.signin">Don't you have an account? <a (click)="this.signUp()">Sign up</a> now.</p>
+      <p *ngIf="this.signup">Already have an account? <a (click)="this.signIn()">Sign in</a> now.</p>
+    </div>
+  </div>
+</section>

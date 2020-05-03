@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>Grocery app</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="../../assets/shopping.png" alt=""/>
+            <h3>Welcome</h3>
+            <p>Register Your Franchise here</p>
+        </div>
+        <div class="col-md-9 register-right">
+            <div class="tab-content" id="myTabContent">
+                    <h3 class="register-heading">Franchise Details</h3>
+                    <!--(submit)="onsignup(loginForm)" #loginForm="ngForm"-->
+                    <form class="example-form" (submit)="onregister(loginForm)" #loginForm="ngForm">
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control"   placeholder="Enter your city *" ngModel type="text" name="city" #City="ngModel" required>
+                                </mat-form-field>
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control"  placeholder="Enter your Pincode *" ngModel type="text" name="Pincode" #Pincode="ngModel" required>
+                                </mat-form-field>
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control"  placeholder="Enter Franchise name *" ngModel type="text" name="Franchisename" #Franchisename="ngModel" required>
+                                </mat-form-field>
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control" placeholder="Created By *" ngModel type="text" name="CreatedBy" #CreatedBy="ngModel" required>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control"  placeholder="District *" ngModel type="text" name="District" #District="ngModel" required>
+                                </mat-form-field>
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control"  placeholder="Country *" ngModel type="text" name="Country" #Country="ngModel" required>
+                                </mat-form-field>
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control"  placeholder="FranchiseAdmin *" ngModel type="text" name="Franchiseadmin" #Franchiseadmin="ngModel" required>
+                                </mat-form-field>
+                                <mat-form-field class="form-group">
+                                    <input matInput class="form-control"  placeholder="ManagedBy *" ngModel type="text" name="ManagedBy" #ManagedBy="ngModel" required>
+                                </mat-form-field>
+                                <button mat-raised-button class="btnRegister" type="submit">Register</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+</div>
