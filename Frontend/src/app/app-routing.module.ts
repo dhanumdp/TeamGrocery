@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
-import { FranchiseAdminComponent } from './franchise-admin/franchise-admin.component';
+
 import { CustomerComponent } from './customer/customer.component';
+import { FranchiseAdminComponent } from './franchise-admin/franchise-admin.component';
 
 
 

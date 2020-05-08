@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 const {User} = require('../models/users');
 const {Inventory} = require('../models/inventory');
+const {Vendor}= require('../models/vendor');
 
 
 /** Create Inventory ROUTE
@@ -29,7 +30,6 @@ router.post('/createInventory',(req,res)=>{
         console.log(err);
     })
 })
-
 
 
 
@@ -77,4 +77,134 @@ Inventory.count({'vendorId':req.body.vendorId}).then((cnt)=>{
 })
 
 
+
+
+
+/** Add Vendor Admin ROUTE
+ * uri: /vendorAdmin/addVendorAdmin
+ * purpose: used to add Vendor Admin to the existing vendor
+ */
+
+
+router.post('/addVendorAdmin',(req,res)=>{
+
+
+    const user = new User({
+        fname : req.body.fname,
+        lname : req.body.lname,
+        email : req.body.email,
+        password : req.body.password,
+        role : "Vendor Admin",
+        address : req.body.address,
+        contact : req.body.contact
+    })
+
+    User.find({'email': req.body.email}).count((err,num)=>{
+        if(num != 0)
+        {
+         res.json({success:false, message:'Mail Id Exists. This user already registered.'})
+        }
+        else
+        {
+            user.save((err,doc)=>{
+                if(err)
+                {
+                    res.json({success:false, message : 'Registration Failed '+err})
+                }
+                else
+                {
+                    console.log({success:true, message : 'User Registered Successfully'})
+                }
+            });
+
+            Vendor.find({'vendorId':req.body.vendorId}, (err,doc)=>{
+                if(err)
+                {
+                    res.json({success:false, message : 'Error While Finding the Vendor'+err})
+                }
+                else
+                {
+                    Vendor.update({'vendorId':req.body.vendorId},{ $push : {'vendorAdmins': req.body.email}},(error)=>{
+                        if(error)
+                        {
+                            console.json({success:false, message : 'Error While Adding the vendor admin'+error})
+                        }
+                        else
+                        {
+                            res.json({success:true, message : 'Vendor Admin Added Successfully'})
+                        }
+                    })
+                }
+            })
+            
+        }
+    })
+
+});
+
+
+/** Edit Vendor ROUTE
+ * uri: /vendorAdmin/editVendor/:id
+ * purpose: used to edit current vendor
+ */
+
+router.post('/editVendor/:id', (req, res) => {
+    
+    Vendor.count({ _id: req.params.id }).then((cnt) => {
+        if (cnt > 0) {
+            Vendor.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }).then((updatedDoc) => {
+                res.send({ success: true, message: 'Vendor Details updated successfully.' });
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else {
+            res.send({ success: false, message: 'Vendor Not Found.' });
+        }
+    }).catch((err) => {
+
+    });
+
+ });
+
+
+/** Get Vendor ID ROUTE
+ * uri: /vendorAdmin/getVendorIds
+ * purpose: used to fetch existing vendors' Ids.
+ */
+
+router.get('/getVendorIds',(req,res)=>{
+    ids=[]
+    Vendor.find({}).then((doc)=>{
+          
+           doc.forEach(element => {
+               ids.push(element.vendorId)
+           });
+           res.send(ids)
+
+    }).catch((err)=>{
+        res.send({Error : err})
+    })
+})
+
+
+/** Get Store Name ROUTE
+ * uri: /vendorAdmin/getVendorStoreNames
+ * purpose: used to fetch existing vendors' storeNames
+ */
+
+ router.get('/getVendorStoreNames/:vendorId',(req,res)=>{
+
+    names = [];
+     Vendor.find({'vendorId':req.params.vendorId}).then((doc)=>{
+
+        res.send(doc[0].storeName)
+
+     }).catch((err)=>{
+         res.send({Error:err})
+     })
+ })
+
+
+
+ 
 module.exports=router;

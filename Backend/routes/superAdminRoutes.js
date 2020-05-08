@@ -7,15 +7,11 @@ const {Franchise} = require('../models/franchise');
 
 var router = express.Router();
 
-//create Franchise
+/** Create Franchise ROUTE
+ * uri: /superAdmin/createFranchise
+ * purpose: used to create Franchise
+ */
 
-/*
-
-    This route will work only after the user logged in and that user shoud be a SuperAdmin.
-
-    and these checkings will be done in FrontEnd by handling session.
-
-*/
 router.post('/createFranchise',(req,res)=>{
      let franchise = new Franchise({
         franchiseId : req.body.franchiseId,
@@ -51,7 +47,10 @@ router.post('/createFranchise',(req,res)=>{
 })
 
 
-// add Franchise Admin
+/** Add Franchise Admin ROUTE
+ * uri: /superAdmin/addFranchiseAdmin
+ * purpose: used to add Franchise Admin to the existing Franchise
+ */
 
 router.post('/addFranchiseAdmin',(req,res)=>{
 
@@ -84,17 +83,17 @@ router.post('/addFranchiseAdmin',(req,res)=>{
                 }
             });
 
-            Franchise.find({'pincode':req.body.pincode}, (err,doc)=>{
+            Franchise.find({'pinCode':req.body.pincode}, (err,doc)=>{
                 if(err)
                 {
                     res.json({success:false, message : 'Error While Finding the Franchise'+err})
                 }
                 else
                 {
-                    Franchise.update({'pincode':req.body.pinCode},{ $set : {'managedBy': req.body.email}},(error)=>{
+                    Franchise.update({'pinCode':req.body.pincode},{ $push : {'franchiseAdmins': req.body.email}},(error)=>{
                         if(error)
                         {
-                            console.json({success:false, message : 'Error While Adding the Managing Person'+error})
+                            console.json({success:false, message : 'Error While Adding the Franchise Admin'+error})
                         }
                         else
                         {
@@ -106,12 +105,73 @@ router.post('/addFranchiseAdmin',(req,res)=>{
             
         }
     })
-
-    
-
 });
 
 
+
+
+/** Edit Franchise ROUTE
+ * uri: /superAdmin/editFranchise/:pincode
+ * purpose: used to edit existing franchise.
+ */
+
+router.post('/editFranchise/:pincode', (req, res) => {
+    
+    Franchise.count({ pinCode: req.params.pincode }).then((cnt) => {
+        if (cnt > 0) {
+            Franchise.findOneAndUpdate({ pinCode: req.params.pincode }, { $set: req.body }).then((updatedDoc) => {
+                res.send({ success: true, message: 'Franchise Details updated successfully.' });
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else {
+            res.send({ success: false, message: 'Franchise Not Found.' });
+        }
+    }).catch((err) => {
+
+    });
+
+ });
+
+
+
+ /** Delete Franchise ROUTE
+ * uri: /superAdmin/deleteFranchise/:pincode
+ * purpose: used to delete existing franchise.
+ */
+
+router.post('/deleteFranchise/:pincode', (req, res) => {
+    
+    Franchise.count({ pinCode: req.params.pincode }).then((cnt) => {
+        if (cnt > 0) {
+            
+                Franchise.find({pinCode:req.params.pincode}).then((doc)=>{
+                        doc[0].franchiseAdmins.forEach(element => {
+                            User.findOneAndDelete({email:element}).then(()=>{
+                                console.log('User '+element+' Deleted')
+                            }).catch((err)=>{
+                                console.log('Error While removing '+element)
+                            })
+                        });
+                 Franchise.findOneAndDelete({pinCode:req.params.pincode}).then(()=>{
+                            res.send({success : true, message : 'Franchise Deleted Successfully'})
+                 }).catch((err)=>{
+                     res.send({success:false, message:'Error occured while deleting Franchise'})
+                 })      
+
+                    
+                }).catch((err)=>{
+                    res.send({success:false, message:'Error occured while finding franchise'})
+                })
+
+        } else {
+            res.send({ success: false, message: 'Franchise Not Found.' });
+        }
+    }).catch((err) => {
+
+    });
+
+ });
 
 
 module.exports = router;

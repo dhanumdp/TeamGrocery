@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
 const {User} = require('./models/users');
+const {Customer} = require('./models/customer')
 var app = express();
 
 app.use(bodyParser.json());
@@ -117,6 +118,8 @@ app.post('/user/login', (req, res) => {
     const password = req.body.password;
     const role = req.body.role;
 
+  
+
     User.findOne({ 'email': email }).then((userDoc) => {
         if (userDoc) {
             res.send({ 
@@ -124,6 +127,16 @@ app.post('/user/login', (req, res) => {
                 message: 'Given Mail id ' + email + ' is already associated with another account.' 
                 });
         } else {
+
+            if(role === 'Customer')
+            {
+                let customer = new Customer({
+                    customerId:req.body.email,
+                    bucket : []
+                })
+                customer.save();
+            }
+
             const newUser = new User({
                 fname,
                 lname,

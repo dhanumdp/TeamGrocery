@@ -6,15 +6,15 @@ var mongoose = require('mongoose');
 const Customer = mongoose.model('Customer',{
 
     customerId: {
-        type: mongoose.Types.ObjectId,
+        type: String, //email
         required: true
     },
-    preferredVendors: [{
-        vendorId: {
-            type: mongoose.Types.ObjectId, // vendorId
-            required: true
-        }
-    }],
+    // preferredVendors: [{
+    //     vendorId: {
+    //         type: mongoose.Types.ObjectId, // vendorId
+    //         required: true
+    //     }
+    // }],
     bucket: [{
         productName: {
             type: String,
@@ -26,7 +26,7 @@ const Customer = mongoose.model('Customer',{
         },
         unit: {
             type: String,
-            required: true
+            
         },
         quantity: {
             type: Number,
@@ -38,7 +38,7 @@ const Customer = mongoose.model('Customer',{
     }]
 
 
-},'Customers')
+},'Customer')
 
 
 

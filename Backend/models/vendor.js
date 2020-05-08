@@ -7,6 +7,9 @@ const Vendor = mongoose.model('Vendor',{
         type: String, // autoGen by Us.
         required: true
     },
+    vendorAdmins: [{
+        type:  String //addedBy franchise admin
+    }],
     storeName : {
         type: String,
         required: true
