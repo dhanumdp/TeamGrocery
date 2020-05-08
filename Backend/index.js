@@ -2,8 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
+
+const jwt = require('jsonwebtoken');
+
+const crypto = require('crypto').randomBytes(256).toString('hex');
+
+
 const {User} = require('./models/users');
 const {Customer} = require('./models/customer')
+
 var app = express();
 
 app.use(bodyParser.json());
@@ -63,9 +70,12 @@ app.post('/user/login', (req, res) => {
     User.findOne({ 'email': email }).then((userDoc) => {
         if (userDoc) {
             if (userDoc.password === password) {
+                const token = jwt.sign({userId:userDoc._id}, crypto, {expiresIn : '24h'});
                 res.send({
                     success: true,
                     message: 'User Logged in successfully.',
+                    token : token, 
+                    user : {email :userDoc.email},
                     role: userDoc.role
                 });
             } else {

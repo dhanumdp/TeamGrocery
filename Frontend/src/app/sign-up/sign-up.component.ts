@@ -247,6 +247,7 @@ export class SignUpComponent implements OnInit {
         this.notifyStatus = res.success;
         this.notifyMsg = res.message;
 
+        this.userService.storeUserData(res.token, res.user);
         //based on the user's role, screens shoud be promoted
         if(res.role=="SuperAdmin")
         {
