@@ -7,6 +7,25 @@ const {Inventory} = require('../models/inventory');
 const {Vendor}= require('../models/vendor');
 
 
+
+
+/** Get Vendor ROUTE
+ * uri: /vendorAdmin/getVendor
+ * purpose: used to get the Current Vendor.
+ */
+
+router.post('/getVendor',(req,res)=>{
+    
+    Vendor.find({'vendorAdmins':req.body.email}).then((doc)=>{
+        res.send(doc)
+    }).catch((err)=>{
+        res.send({success:false, message:'Vendor Loading Error'})
+    })
+
+
+ })
+
+
 /** Create Inventory ROUTE
  * uri: /vendorAdmin/createInventory
  * purpose: used to create new Inventory to the current vendor.
@@ -167,42 +186,24 @@ router.post('/editVendor/:id', (req, res) => {
  });
 
 
-/** Get Vendor ID ROUTE
- * uri: /vendorAdmin/getVendorIds
- * purpose: used to fetch existing vendors' Ids.
- */
-
-router.get('/getVendorIds',(req,res)=>{
-    ids=[]
-    Vendor.find({}).then((doc)=>{
-          
-           doc.forEach(element => {
-               ids.push(element.vendorId)
-           });
-           res.send(ids)
-
-    }).catch((err)=>{
-        res.send({Error : err})
-    })
-})
 
 
-/** Get Store Name ROUTE
- * uri: /vendorAdmin/getVendorStoreNames
- * purpose: used to fetch existing vendors' storeNames
- */
+// /** Get Store Name ROUTE
+//  * uri: /vendorAdmin/getVendorStoreNames
+//  * purpose: used to fetch existing vendors' storeNames
+//  */
 
- router.get('/getVendorStoreNames/:vendorId',(req,res)=>{
+//  router.get('/getVendorStoreNames/:vendorId',(req,res)=>{
 
-    names = [];
-     Vendor.find({'vendorId':req.params.vendorId}).then((doc)=>{
+//     names = [];
+//      Vendor.find({'vendorId':req.params.vendorId}).then((doc)=>{
 
-        res.send(doc[0].storeName)
+//         res.send(doc[0].storeName)
 
-     }).catch((err)=>{
-         res.send({Error:err})
-     })
- })
+//      }).catch((err)=>{
+//          res.send({Error:err})
+//      })
+//  })
 
 
 

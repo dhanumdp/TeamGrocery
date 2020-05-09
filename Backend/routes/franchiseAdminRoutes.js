@@ -5,6 +5,28 @@ var router = express.Router();
 const {User} = require('../models/users');
 
 const { Vendor } = require('../models/vendor');
+const {Franchise} = require('../models/franchise');
+
+
+
+/** Get Franchise ROUTE
+ * uri: /franchiseAdmin/getFranchise
+ * purpose: used to get the Current Franchise.
+ */
+
+ router.post('/getFranchise',(req,res)=>{
+    
+    Franchise.find({'franchiseAdmins':req.body.email}).then((doc)=>{
+        res.send(doc)
+    }).catch((err)=>{
+        res.send({success:false, message:'Franchise Loading Error'})
+    })
+
+
+ })
+
+
+
 
 
 /** Create Vendor ROUTE
@@ -275,6 +297,24 @@ router.post('/deleteVendor/:id', (req, res) => {
 
  });
 
+/** Get Vendor ID ROUTE
+ * uri: /franchiseAdmin/getVendorIds
+ * purpose: used to fetch existing vendors' Ids.
+ */
+
+router.get('/getVendorIds',(req,res)=>{
+    ids=[]
+    Vendor.find({}).then((doc)=>{
+          
+           doc.forEach(element => {
+               ids.push(element.vendorId)
+           });
+           res.send(ids)
+
+    }).catch((err)=>{
+        res.send({Error : err})
+    })
+})
 
  
 

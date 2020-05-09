@@ -174,4 +174,26 @@ router.post('/deleteFranchise/:pincode', (req, res) => {
  });
 
 
+
+ /** Get Franchise ID ROUTE
+ * uri: /superAdmin/getFranchiseIds
+ * purpose: used to fetch existing Franchise Ids.
+ */
+
+router.get('/getFranchiseIds',(req,res)=>{
+    ids=[]
+    Franchise.find({}).then((doc)=>{
+          
+           doc.forEach(element => {
+               ids.push(element.franchiseId)
+           });
+           res.send(ids)
+
+    }).catch((err)=>{
+        res.send({Error : err})
+    })
+})
+
+
+
 module.exports = router;
