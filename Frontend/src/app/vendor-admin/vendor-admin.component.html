@@ -1,1 +1,128 @@
-<p>vendor-admin works!</p>
+<section class="grocery-section-main">
+  <section class="grocery-section-col">
+    <div class="grocery-profile-card">
+      <img class="grocery-profile-img" src="../../../assets/shopping.png">
+    </div>
+    <div class="grocery-side-nav">
+      <a class="grocery-side-nav-item" (click)="this.Inventory()" [ngClass]="{ 'is-active': this.isInventory }">Inventory</a>
+      <a class="grocery-side-nav-item" (click)="this.Profile()" [ngClass]="{ 'is-active': this.isProfile }">Profile</a>
+      <a class="grocery-side-nav-logout">Logout<i class="fas fa-sign-out-alt"></i></a>
+    </div>
+  </section>
+  <section class="grocery-section-col disp-grow">
+    <div class="navbar" *ngIf="this.isInventory" >
+      <div class="grocery-search-bar">
+        <input list="pincode" class="input" placeholder="Type here to search">
+        <datalist id="pincode">
+          <option value="626125"></option>
+          <option value="626123"></option>
+        </datalist>
+        <button class="button"><i class="fas fa-map-marker-alt"></i></button>
+      </div>
+      <button class="navbar-end" (click)="this.NewProduct()">
+        <span>Add Product</span>
+      </button>
+    </div>
+    <section class="grocery-section-row" *ngIf="this.vendorInventory" >
+      <div class="grocery-product-card" *ngFor="let item of this.vendorInventory.products"  (click)="this.EditProduct(item)">
+        <div class="grocery-product-img">
+          <img src="../../../assets/products.png">
+        </div>
+        <div class="grocery-product-name">
+          <span>{{item.productName}}</span>
+        </div>
+        <div class="grocery-product-category">
+          <span>{{item.productCategory}}</span>
+        </div>
+      </div>
+    </section>
+  </section>
+</section>
+
+
+
+
+<section class="modal" [ngClass]="{ 'is-active': this.isNewProduct }">
+  <div class="modal-background">
+    <div class="grocery-modal pulled-right create-modal">
+      <div class="grocery-modal-header">
+        <div class="grocery-modal-back" (click)="this.NewProduct()">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="grocery-modal-title">New product</div>
+      </div>
+      <div class="grocery-modal-contents" [formGroup] = "newProduct">
+        <div class="grocery-modal-input-holder">
+          <input formControlName = "productName" class="input" type="text" placeholder="product name">
+          <label for="productName" class="grocery-input-label">product name</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName = "productCategory" class="input" type="text" placeholder="category">
+          <label for="productCategory" class="grocery-input-label">category</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName = "unit" class="input" type="text" placeholder="unit">
+          <label for="unit" class="grocery-input-label">unit</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName = "quantity" class="input" type="text" placeholder="quantity">
+          <label for="quantity" class="grocery-input-label">quantity</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName = "stockCnt" class="input" type="text" placeholder="stock">
+          <label for="stockCnt" class="grocery-input-label">stock</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName = "MRP" class="input" type="text" placeholder="mrp [optional]">
+          <label for="mrp" class="grocery-input-label">mrp</label>
+        </div>
+      </div>
+      <button class="grocery-modal-footer is-success" (click)="newProductSave()">Save</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="modal" [ngClass]="{ 'is-active': this.isEditProduct }">
+  <div class="modal-background">
+    <div class="grocery-modal pulled-right edit-modal">
+      <div class="grocery-modal-header">
+        <div class="grocery-modal-back" (click)="this.EditProduct(null)">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="grocery-modal-title">Edit Product</div>
+      </div>
+      <div class="grocery-modal-delete" (click)="deleteProduct()">
+        <button class="grocery-modal-delete-btn"><span class="span-cls">Delete</span><i
+            class="fas fa-trash-alt"></i></button>
+      </div>
+      <div class="grocery-modal-contents" [formGroup]="editProduct">
+        <div class="grocery-modal-input-holder">
+          <input formControlName="productName" class="input" type="text" placeholder="product name">
+          <label for="productName" class="grocery-input-label">product name</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName="productCategory" class="input" type="text" placeholder="category">
+          <label for="productCategory" class="grocery-input-label">category</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName="unit" class="input" type="text" placeholder="unit">
+          <label for="unit" class="grocery-input-label">unit</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName="quantity" class="input" type="text" placeholder="quantity">
+          <label for="quantity" class="grocery-input-label">quantity</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName="stockCnt" class="input" type="text" placeholder="stock">
+          <label for="stockCnt" class="grocery-input-label">stock</label>
+        </div>
+        <div class="grocery-modal-input-holder">
+          <input formControlName="MRP" class="input" type="text" placeholder="mrp [optional]">
+          <label for="mrp" class="grocery-input-label">mrp</label>
+        </div>
+      </div>
+      <button class="grocery-modal-footer is-success" (click)="editProductSave()">Save</button>
+    </div>
+  </div>
+</section>

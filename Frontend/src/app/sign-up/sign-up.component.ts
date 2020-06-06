@@ -55,13 +55,17 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.strength = this.passwdStrength.EMPTY;
     this.signUpBtn = true;
     this.signInBtn = true;
+
   }
 
   onMailKeyUp(event: any, email: string) {
+
     const verifyEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
     if (email === null || email === '') {
       this.validMail = undefined;
       return;
@@ -241,6 +245,7 @@ export class SignUpComponent implements OnInit {
 
   onSignIn() {
     this.signInBtn = false;
+    
     return this.userService.signIn(this.signInForm.value).subscribe((res: any) => {
       if (res.success) {
         this.notifyFlag = true;
@@ -260,6 +265,10 @@ export class SignUpComponent implements OnInit {
         else if(res.role == 'Customer')
         {
           this.router.navigate(['/GrocerySOS/Customer'])
+        }
+        else if(res.role =='VendorAdmin')
+        {
+          this.router.navigate(['/GrocerySOS/VendorAdmin'])
         }
 
 

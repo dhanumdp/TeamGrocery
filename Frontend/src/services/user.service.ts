@@ -18,6 +18,18 @@ export class UserService {
   signIn(data: Object) {
     return this.webReqService.post('user/login', data);
   }
+  
+  setUserId(userId: string) {
+    localStorage.setItem('userId', userId);
+  }
+
+  getUserId() {
+    return localStorage.getItem('userId');
+  }
+
+  deleteUserId() {
+    localStorage.removeItem('userId');
+  }
 
 
   storeUserData(token,user)

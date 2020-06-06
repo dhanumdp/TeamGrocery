@@ -5,8 +5,7 @@ import { SuperAdminComponent } from './super-admin/super-admin.component';
 
 import { CustomerComponent } from './customer/customer.component';
 import { FranchiseAdminComponent } from './franchise-admin/franchise-admin.component';
-
-
+import { VendorAdminComponent } from './vendor-admin/vendor-admin.component';
 
 const routes: Routes = [
   {
@@ -29,7 +28,12 @@ const routes: Routes = [
   {
     path : 'GrocerySOS/FranchiseAdmin',
     component : FranchiseAdminComponent
+  },
+  {
+    path : 'GrocerySOS/VendorAdmin',
+    component : VendorAdminComponent
   }
+  
 ];
 
 @NgModule({

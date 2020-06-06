@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 
 const Order = mongoose.model('Order',{
     customerId: {
-        type: mongoose.Types.ObjectId,
+        type: String,
         required: true
     },
     vendorId: {
-        type: mongoose.Types.ObjectId,
+        type: String,
         required: true
     },
     products: [{

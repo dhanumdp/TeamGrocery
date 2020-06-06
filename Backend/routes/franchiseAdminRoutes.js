@@ -156,7 +156,7 @@ router.post('/addVendorAdmin',(req,res)=>{
         lname : req.body.lname,
         email : req.body.email,
         password : req.body.password,
-        role : "Vendor Admin",
+        role : "VendorAdmin",
         address : req.body.address,
         contact : req.body.contact
     })

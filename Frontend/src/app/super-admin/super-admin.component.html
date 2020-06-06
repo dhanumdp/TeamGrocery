@@ -1,1 +1,317 @@
-<p>super-admin works!</p>
+<div *ngIf="!LoggedIn" style="text-align: center; ">
+  <p class="title is-1 is-spaced" >Illegal Access!!</p>
+<p class="subtitle is-3">You Must Login to Access it.</p>
+</div>
+
+
+<section *ngIf="LoggedIn" class="grocery-section-main">
+    <section class="grocery-section-col">
+      <div class="grocery-profile-card">
+        <img class="grocery-profile-img" src="../../../assets/shopping.png">
+      </div>
+      <div class="grocery-side-nav">
+        <a class="grocery-side-nav-item" (click)="this.Franchise()" [ngClass]="{ 'is-active': this.isFranchise }">Franchise</a>
+        <a class="grocery-side-nav-item" (click)="this.Admin()" [ngClass]="{ 'is-active': this.isAdmin }">Admins</a>
+        <!--<a class="grocery-side-nav-item">Vendors</a>-->
+        <a class="grocery-side-nav-item" (click)="this.Profile()" [ngClass]="{ 'is-active': this.isProfile }">Profile</a>
+        <a class="grocery-side-nav-logout" (click)="Logout()">Logout<i class="fas fa-sign-out-alt"></i></a>
+      </div>
+    </section>
+    <section class="grocery-section-col disp-grow">
+      <div class="navbar" *ngIf="this.isAdmin">
+        <div class="grocery-search-bar">
+          <input list="pincode" class="input" placeholder="Type here to search">
+          <datalist id="pincode">
+            <option value="626125"></option>
+            <option value="626123"></option>
+          </datalist>
+          <button class="button"><i class="fas fa-map-marker-alt"></i></button>
+        </div>
+        <button class="navbar-end" (click)="this.NewAdmin()">
+          <span>Add Admin</span>
+        </button>
+      </div>
+      <div class="navbar" *ngIf="this.isFranchise" >
+        <div class="grocery-search-bar">
+          <input list="pincode" class="input" placeholder="Type here to search">
+          <datalist id="pincode">
+            <option value="626125"></option>
+            <option value="626123"></option>
+          </datalist>
+          <button class="button"><i class="fas fa-map-marker-alt"></i></button>
+        </div>
+        <button class="navbar-end" (click)="this.NewFranchise()">
+          <span>Add Franchise</span>
+        </button>
+      </div>
+      <section class="grocery-section-row" *ngIf="this.isAdmin" >
+        <div class="grocery-admin-card" *ngFor="let item of this.admins"  (click)="this.EditAdminById(item._id)">
+          <div class="grocery-admin-img">
+            <img src="../../assets/admin.png">
+          </div>
+          <div class="grocery-admin-name">
+            <span>{{item.fname}} </span><span>{{item.lname}}</span>
+          </div>
+          <div class="grocery-admin-contact">
+            Whatsapp : <span>{{item.contact[0].whatsApp}}</span>
+          </div>
+        </div>
+      </section>
+      <section class="grocery-section-row" *ngIf="this.isFranchise" >
+        <div class="grocery-franchise-card" *ngFor="let item of this.franchise"  (click)="this.EditFranchiseById(item._id)">
+          <div class="grocery-franchise-title">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ item.pinCode }}</span>
+          </div>
+          <div class="grocery-franchise-details">
+            <div class="grocery-franchise-admins">
+              <i class="fas fa-users-cog"></i>
+              <span>450 Admins</span>
+            </div>
+            <div class="grocery-franchise-vendors">
+              <i class="fas fa-store-alt"></i>
+              <span> 120 Vendors</span>
+            </div>
+          </div>
+        </div>
+        <div class="grocery-franchise-card" *ngFor="let item of this.franchise"  (click)="this.EditFranchiseById(item._id)">
+          <div class="grocery-franchise-title">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ item.pinCode }}</span>
+          </div>
+          <div class="grocery-franchise-details">
+            <div class="grocery-franchise-admins">
+              <i class="fas fa-users-cog"></i>
+              <span>450 Admins</span>
+            </div>
+            <div class="grocery-franchise-vendors">
+              <i class="fas fa-store-alt"></i>
+              <span> 120 Vendors</span>
+            </div>
+          </div>
+        </div>
+        <div class="grocery-franchise-card" *ngFor="let item of this.franchise"  (click)="this.EditFranchiseById(item._id)">
+          <div class="grocery-franchise-title">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ item.pinCode }}</span>
+          </div>
+          <div class="grocery-franchise-details">
+            <div class="grocery-franchise-admins">
+              <i class="fas fa-users-cog"></i>
+              <span>450 Admins</span>
+            </div>
+            <div class="grocery-franchise-vendors">
+              <i class="fas fa-store-alt"></i>
+              <span> 120 Vendors</span>
+            </div>
+          </div>
+        </div>
+        <div class="grocery-franchise-card" *ngFor="let item of this.franchise"  (click)="this.EditFranchiseById(item._id)">
+          <div class="grocery-franchise-title">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ item.pinCode }}</span>
+          </div>
+          <div class="grocery-franchise-details">
+            <div class="grocery-franchise-admins">
+              <i class="fas fa-users-cog"></i>
+              <span>450 Admins</span>
+            </div>
+            <div class="grocery-franchise-vendors">
+              <i class="fas fa-store-alt"></i>
+              <span> 120 Vendors</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </section>
+  
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isNewFranchise }">
+    <div class="modal-background">
+      <div class="grocery-modal pulled-right create-modal">
+        <div class="grocery-modal-header">
+          <div class="grocery-modal-back" (click)="this.NewFranchise()">
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div class="grocery-modal-title">New Franchise</div>
+        </div>
+        <div class="grocery-modal-contents" [formGroup]="newFranchise">
+          <div class="grocery-modal-input-holder">
+            <input formControlName="pinCode" class="input" type="text" placeholder="pin code">
+            <label for="pincode" class="grocery-input-label">pin code</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="city" class="input" type="text" placeholder="city">
+            <label for="city" class="grocery-input-label">city</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="district" class="input" type="text" placeholder="district">
+            <label for="district" class="grocery-input-label">district</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="country" class="input" type="text" placeholder="country">
+            <label for="country" class="grocery-input-label">country</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="franchiseName" class="input" type="text" placeholder="Franchise Name">
+            <label for="franchiseName" class="grocery-input-label">Franchise Name</label>
+          </div>
+        </div>
+        <button class="grocery-modal-footer is-success" (click)="this.newFranchiseSave()">
+          Save
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isEditFranchise }">
+    <div class="modal-background">
+      <div class="grocery-modal pulled-right edit-modal">
+        <div class="grocery-modal-header">
+          <div class="grocery-modal-back" (click)="this.EditFranchise()">
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div class="grocery-modal-title">Edit Franchise</div>
+        </div>
+        <div class="grocery-modal-delete">
+          <button class="grocery-modal-delete-btn"><span class="span-cls">Delete</span><i
+              class="fas fa-trash-alt"></i></button>
+        </div>
+        <div class="grocery-modal-contents" [formGroup]="editFranchise">
+          <div class="grocery-modal-input-holder">
+            <input formControlName="pinCode" class="input" type="text" placeholder="pin code">
+            <label for="pincode" class="grocery-input-label">pin code</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="city" class="input" type="text" placeholder="city">
+            <label for="city" class="grocery-input-label">city</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="district" class="input" type="text" placeholder="district">
+            <label for="district" class="grocery-input-label">district</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="country" class="input" type="text" placeholder="country">
+            <label for="country" class="grocery-input-label">country</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="franchiseName" class="input" type="text" placeholder="Franchise Name">
+            <label for="franchiseName" class="grocery-input-label">Franchise Name</label>
+          </div>
+        </div>
+        <button class="grocery-modal-footer is-success" (click)="editFranchiseSave()">
+          Save
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isNewAdmin }">
+    <div class="modal-background">
+      <div class="grocery-modal pulled-right create-modal">
+        <div class="grocery-modal-header">
+          <div class="grocery-modal-back" (click)="this.NewAdmin()">
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div class="grocery-modal-title">New Admin</div>
+        </div>
+        <div class="grocery-modal-contents" [formGroup]="newAdmin">
+          <div class="grocery-modal-input-holder">
+            <input formControlName="fname" class="input" type="text" placeholder="first name">
+            <label for="firstName" class="grocery-input-label">first name</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="lname" class="input" type="text" placeholder="last name">
+            <label for="lastName" class="grocery-input-label">last name</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="whatsApp" class="input" type="text" placeholder="whatsapp">
+            <label for="whatsapp" class="grocery-input-label">whatsapp</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="email" class="input" type="text" placeholder="e-mail">
+            <label for="email" class="grocery-input-label">e-mail</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="password" class="input" type="text" placeholder="password">
+            <label for="password" class="grocery-input-label">password</label>
+          </div>
+        </div>
+        <button class="grocery-modal-footer is-success" (click)="this.newAdminSave()">Save</button>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isEditAdmin }">
+    <div class="modal-background">
+      <div class="grocery-modal pulled-right edit-modal">
+        <div class="grocery-modal-header">
+          <div class="grocery-modal-back" (click)="this.EditAdmin()">
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div class="grocery-modal-title">Edit Admin</div>
+        </div>
+        <div class="grocery-modal-delete">
+          <button class="grocery-modal-delete-btn"><span class="span-cls">Delete</span><i
+              class="fas fa-trash-alt"></i></button>
+        </div>
+        <div class="grocery-modal-contents" [formGroup]="editAdmin">
+          <div class="grocery-modal-input-holder">
+            <input formControlName="fname" class="input" type="text" placeholder="first name">
+            <label for="firstName" class="grocery-input-label">first name</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="lname" class="input" type="text" placeholder="last name">
+            <label for="lastName" class="grocery-input-label">last name</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="whatsApp" class="input" type="text" placeholder="whatsapp">
+            <label for="whatsapp" class="grocery-input-label">whatsapp</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="email" class="input" type="text" placeholder="e-mail">
+            <label for="email" class="grocery-input-label">e-mail</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="password" class="input" type="text" placeholder="password">
+            <label for="password" class="grocery-input-label">password</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="doorNo" class="input" type="text" placeholder="door no">
+            <label for="doorNo" class="grocery-input-label">door no</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="addressLine1" class="input" type="text" placeholder="address line 1">
+            <label for="addressLine1" class="grocery-input-label">address line 1</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="addressLine2" class="input" type="text" placeholder="address line 2 [optional]">
+            <label for="addressLine2" class="grocery-input-label">address line 2</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="city" class="input" type="text" placeholder="city">
+            <label for="city" class="grocery-input-label">city</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="district" class="input" type="text" placeholder="district">
+            <label for="district" class="grocery-input-label">district</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="pinCode" class="input" type="text" placeholder="postal code">
+            <label for="pincode" class="grocery-input-label">postal code</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="country" class="input" type="text" placeholder="country">
+            <label for="country" class="grocery-input-label">country</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="mobile" class="input" type="text" placeholder="mobile [Alt]">
+            <label for="mobile" class="grocery-input-label">mobile</label>
+          </div>
+        </div>
+        <button class="grocery-modal-footer is-success" (click)="this.editAdminSave()">Save</button>
+      </div>
+    </div>
+  </section>

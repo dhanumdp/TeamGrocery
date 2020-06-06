@@ -1,0 +1,765 @@
+@import '../../styles.scss';
+
+@media only screen and (min-width: 1000px) and (max-width: 1439px) {
+  .grocery-section-col {
+    width: 300px;
+    background: white;
+    box-shadow: 0px 0px 96px #F4F2F1;
+
+    &.disp-grow {
+      flex-grow: 1;
+    }
+
+  }
+
+  .grocery-franchise-card {
+    background: #fff;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    height: max-content;
+    transition: transform 0.30s ease-in-out;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 1px 1px 96px #F4F2F1;
+    }
+
+
+    .grocery-franchise-title {
+      width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-bottom: solid 0.5px #5F6D71;
+
+      i {
+        padding: 5px;
+      }
+
+      span {
+        font-variant-caps: all-petite-caps;
+      }
+    }
+
+    .grocery-franchise-details {
+      display: flex;
+      flex-direction: row;
+
+      .grocery-franchise-admins {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 125px;
+
+        i {
+          padding: 5px;
+        }
+
+        span {
+          font-variant-caps: all-petite-caps;
+        }
+      }
+
+      .grocery-franchise-vendors {
+        width: 125px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        i {
+          padding: 5px;
+        }
+
+        span {
+          font-variant-caps: all-petite-caps;
+        }
+      }
+
+    }
+
+
+  }
+
+
+
+  .grocery-profile-card {
+    display: flex;
+    width: 100%;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .grocery-profile-img {
+    width: 200px;
+  }
+
+
+  .grocery-side-nav {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    position: relative;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .grocery-side-nav-logout {
+    border-top: solid 1px #5F6D71;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #5F6D71;
+
+    i {
+      padding: 5px;
+    }
+
+    &:hover {
+      color: $danger;
+      background: #F4F2F1;
+      border-right: solid 5px $danger;
+    }
+
+  }
+
+  .grocery-side-nav-item {
+    color: #5F6D71;
+    padding: 10px;
+    font-size: 18px;
+
+    &:hover {
+      background: #F4F2F1;
+      color: $danger;
+      border-right: solid 5px $danger;
+    }
+
+    &.is-active {
+      background: #F4F2F1;
+      border-right: solid 5px $danger;
+    }
+
+  }
+
+  .grocery-search-bar {
+    width: 350px;
+    padding: 10px;
+    position: relative;
+    margin: 0 auto;
+
+    input {
+      border-radius: 25px;
+      padding-left: 20px;
+      color: #5F6D71;
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+        border: solid 1px hotpink;
+      }
+
+    }
+
+    input:focus~.button {
+      background: hotpink;
+      color: #F4F2F1;
+    }
+
+    .button {
+      width: 36px;
+      height: 36px;
+      top: 12px;
+      border: none;
+      position: absolute;
+      right: 12px;
+      border-radius: 25px;
+      outline: none;
+      box-shadow: none;
+
+      &:hover {
+        background: hotpink;
+        color: #F4F2F1;
+      }
+
+      &:active {
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+
+    }
+
+  }
+
+
+  .navbar {
+    box-shadow: 1px 1px 96px #F4F2F1;
+    position: relative;
+  }
+
+  .navbar-end {
+    position: absolute;
+    padding: 10px 20px;
+    height: 100%;
+    right: 0px;
+    background: none;
+    color: #5F6D71;
+    font-weight: 500;
+    font-variant-caps: all-petite-caps;
+    outline: none;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: #F4F2F1;
+      border-bottom: solid 5px hotpink;
+    }
+
+  }
+
+
+  .grocery-modal {
+    background: white;
+    position: relative;
+
+    &.pulled-right {
+      float: right;
+    }
+
+    &.create-modal {
+      width: 350px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    &.edit-modal {
+      width: 350px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+  }
+
+
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1649px) {
+  .grocery-section-col {
+    width: 300px;
+    background: white;
+    box-shadow: 0px 0px 96px #F4F2F1;
+
+    &.disp-grow {
+      flex-grow: 1;
+    }
+
+  }
+
+  .grocery-franchise-card {
+    background: #fff;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    height: max-content;
+    transition: transform 0.30s ease-in-out;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 1px 1px 96px #F4F2F1;
+    }
+
+
+    .grocery-franchise-title {
+      width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-bottom: solid 0.5px #5F6D71;
+
+      i {
+        padding: 5px;
+      }
+
+      span {
+        font-variant-caps: all-petite-caps;
+      }
+    }
+
+    .grocery-franchise-details {
+      display: flex;
+      flex-direction: row;
+
+      .grocery-franchise-admins {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 125px;
+
+        i {
+          padding: 5px;
+        }
+
+        span {
+          font-variant-caps: all-petite-caps;
+        }
+      }
+
+      .grocery-franchise-vendors {
+        width: 125px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        i {
+          padding: 5px;
+        }
+
+        span {
+          font-variant-caps: all-petite-caps;
+        }
+      }
+
+    }
+
+
+  }
+
+
+
+  .grocery-profile-card {
+    display: flex;
+    width: 100%;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .grocery-profile-img {
+    width: 200px;
+  }
+
+
+  .grocery-side-nav {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    position: relative;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .grocery-side-nav-logout {
+    border-top: solid 1px #5F6D71;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #5F6D71;
+
+    i {
+      padding: 5px;
+    }
+
+    &:hover {
+      color: $danger;
+      background: #F4F2F1;
+      border-right: solid 5px $danger;
+    }
+
+  }
+
+  .grocery-side-nav-item {
+    color: #5F6D71;
+    padding: 10px;
+    font-size: 18px;
+
+    &:hover {
+      background: #F4F2F1;
+      color: $danger;
+      border-right: solid 5px $danger;
+    }
+
+    &.is-active {
+      background: #F4F2F1;
+      border-right: solid 5px $danger;
+    }
+
+  }
+
+  .grocery-search-bar {
+    width: 550px;
+    padding: 10px;
+    position: relative;
+    margin: 0 auto;
+
+    input {
+      border-radius: 25px;
+      padding-left: 20px;
+      color: #5F6D71;
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+        border: solid 1px hotpink;
+      }
+
+    }
+
+    input:focus~.button {
+      background: hotpink;
+      color: #F4F2F1;
+    }
+
+    .button {
+      width: 36px;
+      height: 36px;
+      top: 12px;
+      border: none;
+      position: absolute;
+      right: 12px;
+      border-radius: 25px;
+      outline: none;
+      box-shadow: none;
+
+      &:hover {
+        background: hotpink;
+        color: #F4F2F1;
+      }
+
+      &:active {
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+
+    }
+  }
+
+
+  .navbar {
+    box-shadow: 1px 1px 96px #F4F2F1;
+    position: relative;
+  }
+
+  .navbar-end {
+    position: absolute;
+    padding: 10px 20px;
+    height: 100%;
+    right: 0px;
+    background: none;
+    color: #5F6D71;
+    font-weight: 500;
+    font-variant-caps: all-petite-caps;
+    outline: none;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: #F4F2F1;
+      border-bottom: solid 5px hotpink;
+    }
+
+  }
+
+  .grocery-modal {
+    background: white;
+    position: relative;
+
+    &.pulled-right {
+      float: right;
+    }
+
+    &.create-modal {
+      width: 450px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    &.edit-modal {
+      width: 450px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+  }
+
+}
+
+@media only screen and (min-width: 1650px) {
+  .grocery-section-col {
+    width: 300px;
+    background: white;
+    box-shadow: 0px 0px 96px #F4F2F1;
+
+    &.disp-grow {
+      flex-grow: 1;
+    }
+
+  }
+
+  .grocery-franchise-card {
+    background: #fff;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    height: max-content;
+    transition: transform 0.30s ease-in-out;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 1px 1px 96px #F4F2F1;
+    }
+
+
+    .grocery-franchise-title {
+      width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-bottom: solid 0.5px #5F6D71;
+
+      i {
+        padding: 5px;
+      }
+
+      span {
+        font-variant-caps: all-petite-caps;
+      }
+    }
+
+    .grocery-franchise-details {
+      display: flex;
+      flex-direction: row;
+
+      .grocery-franchise-admins {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 125px;
+
+        i {
+          padding: 5px;
+        }
+
+        span {
+          font-variant-caps: all-petite-caps;
+        }
+      }
+
+      .grocery-franchise-vendors {
+        width: 125px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        i {
+          padding: 5px;
+        }
+
+        span {
+          font-variant-caps: all-petite-caps;
+        }
+      }
+
+    }
+
+
+  }
+
+
+
+  .grocery-profile-card {
+    display: flex;
+    width: 100%;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .grocery-profile-img {
+    width: 200px;
+  }
+
+
+  .grocery-side-nav {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+
+  .grocery-side-nav-logout {
+    border-top: solid 1px #5F6D71;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #5F6D71;
+
+    i {
+      padding: 5px;
+    }
+
+    &:hover {
+      color: $danger;
+      background: #F4F2F1;
+      border-right: solid 5px $danger;
+    }
+
+  }
+
+  .grocery-side-nav-item {
+    color: #5F6D71;
+    padding: 10px;
+    font-size: 18px;
+
+    &:hover {
+      background: #F4F2F1;
+      color: $danger;
+      border-right: solid 5px $danger;
+    }
+
+    &.is-active {
+      background: #F4F2F1;
+      border-right: solid 5px $danger;
+    }
+
+  }
+
+  .grocery-search-bar {
+    width: 750px;
+    padding: 10px;
+    position: relative;
+    margin: 0 auto;
+
+    input {
+      border-radius: 25px;
+      padding-left: 20px;
+      color: #5F6D71;
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+        border: solid 1px hotpink;
+      }
+
+    }
+
+    input:focus~.button {
+      background: hotpink;
+      color: white;
+    }
+
+    .button {
+      width: 36px;
+      height: 36px;
+      top: 12px;
+      border: none;
+      position: absolute;
+      right: 12px;
+      border-radius: 25px;
+      outline: none;
+      box-shadow: none;
+
+      &:hover {
+        background: hotpink;
+        color: white;
+      }
+
+      &:active {
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+
+    }
+
+  }
+
+
+  .navbar {
+    box-shadow: 1px 1px 96px #F4F2F1;
+    position: relative;
+  }
+
+
+  .navbar-end {
+    position: absolute;
+    padding: 10px 20px;
+    height: 100%;
+    right: 0px;
+    background: none;
+    color: #5F6D71;
+    font-weight: 500;
+    font-variant-caps: all-petite-caps;
+    outline: none;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+      background: #F4F2F1;
+      border-bottom: solid 5px hotpink;
+    }
+
+  }
+
+  .grocery-modal {
+    background: white;
+    position: relative;
+
+    &.pulled-right {
+      float: right;
+    }
+
+    &.create-modal {
+      width: 550px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    &.edit-modal {
+      width: 550px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+  }
+
+}
