@@ -5,7 +5,7 @@ const Vendor = mongoose.model('Vendor',{
 
     vendorId: {
         type: String, // autoGen by Us.
-        required: true
+        // required: true
     },
     vendorAdmins: [{
         type:  String //addedBy franchise admin
@@ -27,30 +27,30 @@ const Vendor = mongoose.model('Vendor',{
         },
         doorNo: {
             type: String,
-            required: true
+           
         },
         addressLine1: {
             type: String,
-            required: true
+           
         },
         addressLine2: {
             type: String
         },
         city: {
             type: String,
-            required: true
+            
         },
         district: {
             type: String,
-            required:true
+            
         },
         pinCode: {
             type: String,
-            required: true
+           
         },
         country: {
             type: String,
-            required: true
+           
         }
     }],
     contact: [{
@@ -68,11 +68,11 @@ const Vendor = mongoose.model('Vendor',{
     },
     deliveryWindow: {
         type: String,
-        required: true
+      
     },
     pickupWindow: {
         type: String,
-        required: true    
+       
     }
 
 },'Vendors')

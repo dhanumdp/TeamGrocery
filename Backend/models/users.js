@@ -28,12 +28,12 @@ const User = mongoose.model('Users',{
         },
         doorNo: {
             type: String,
-            required: true,
+           
             default: null
         },
         addressLine1: {
             type: String,
-            required: true,
+           
             default: null
         },
         addressLine2: {
@@ -42,22 +42,21 @@ const User = mongoose.model('Users',{
         },
         city: {
             type: String,
-            required: true,
+           
             default: null
         },
         district: {
             type: String,
-            required:true,
+          
             default: null
         },
         pinCode: {
             type: Number,
-            required: true,
+           
             default: null
         },
         country: {
             type: String,
-            required: true,
             default: null
         }
     }],

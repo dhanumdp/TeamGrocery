@@ -1,4 +1,9 @@
-<section class="grocery-section-main">
+<div *ngIf="!LoggedIn" style="text-align: center; ">
+  <p class="title is-1 is-spaced" >Illegal Access!!</p>
+<p class="subtitle is-3">You Must Login to Access it.</p>
+</div>
+
+<section *ngIf="LoggedIn" class="grocery-section-main">
     <section class="grocery-section-col">
       <div class="grocery-profile-card">
         <img class="grocery-profile-img" src="../../../assets/shopping.png">
@@ -7,18 +12,20 @@
         <a class="grocery-side-nav-item" (click)="this.Admin()" [ngClass]="{ 'is-active': this.isAdmin }">Admins</a>
         <a class="grocery-side-nav-item" (click)="this.Vendor()" [ngClass]="{ 'is-active': this.isVendor }">Vendors</a>
         <a class="grocery-side-nav-item" (click)="this.Profile()" [ngClass]="{ 'is-active': this.isProfile }">Profile</a>
-        <a class="grocery-side-nav-logout">Logout<i class="fas fa-sign-out-alt"></i></a>
+        <a class="grocery-side-nav-logout" (click)="LogOut()">Logout<i class="fas fa-sign-out-alt"></i></a>
       </div>
     </section>
     <section class="grocery-section-col disp-grow">
       <div class="navbar" *ngIf="this.isAdmin" >
         <div class="grocery-search-bar">
-          <input list="pincode" class="input" placeholder="Type here to search">
+           
+            <h1 class="subtitle" style="text-align: center; cursor: default;" s>{{franchiseName}}  <i class="fas fa-map-marker-alt"></i>  {{franchisePinCode}}</h1>
+          <!-- <input list="pincode" class="input" placeholder="Type here to search">
           <datalist id="pincode">
             <option value="626125"></option>
             <option value="626123"></option>
-          </datalist>
-          <button class="button"><i class="fas fa-map-marker-alt"></i></button>
+          </datalist>-->
+          <!-- <button class="button"><i class="fas fa-map-marker-alt"></i></button>  -->
         </div>
         <button class="navbar-end" (click)="this.NewAdmin()">
           <span>Add Admin</span>
@@ -26,97 +33,54 @@
       </div>
       <div class="navbar" *ngIf="this.isVendor" >
         <div class="grocery-search-bar">
-          <input list="pincode" class="input" placeholder="Type here to search">
-          <datalist id="pincode">
-            <option value="626125"></option>
-            <option value="626123"></option>
-          </datalist>
-          <button class="button"><i class="fas fa-map-marker-alt"></i></button>
-        </div>
+           
+          <h1 class="subtitle" style="text-align: center; cursor: default;" s>{{franchiseName}}  <i class="fas fa-map-marker-alt"></i>  {{franchisePinCode}}</h1>
+        <!-- <input list="pincode" class="input" placeholder="Type here to search">
+        <datalist id="pincode">
+          <option value="626125"></option>
+          <option value="626123"></option>
+        </datalist>-->
+        <!-- <button class="button"><i class="fas fa-map-marker-alt"></i></button>  -->
+      </div>
         <button class="navbar-end" (click)="this.NewVendor()">
           <span>Add Vendor</span>
         </button>
       </div>
-      <section class="grocery-section-row" *ngIf="this.isVendor" >
-        <div class="grocery-vendor-card" (click)="this.EditVendor()">
-          <div class="grocery-vendor-img">
-            <img src="../../../assets/store.jpg">
-          </div>
-          <div class="grocery-vendor-store">
-            <span>ARM Super market</span>
-          </div>
-          <div class="grocery-vendor-contact">
-            Whatsapp : <span>7010582403</span>
+      <section class="grocery-section-row" *ngIf="this.isVendor">
+        <div *ngFor="let vendor of vendors">
+          <div class="grocery-vendor-card" (click)="this.EditVendor(vendor)">
+            <div class="grocery-vendor-img">
+              <img src="../../../assets/store.jpg">
+            </div>
+            <div class="grocery-vendor-store">
+              <span>{{vendor.storeName}}</span>
+            </div>
+            <div class="grocery-vendor-contact">
+              Whatsapp : <span>{{vendor.contact[0].whatsApp}}</span>
+            </div>
           </div>
         </div>
+       
       </section>
       <section class="grocery-section-row" *ngIf="this.isAdmin" >
-        <div class="grocery-admin-card" (click)="this.EditAdmin()">
-          <div class="grocery-admin-img">
-            <img src="../../assets/admin.png">
-          </div>
-          <div class="grocery-admin-name">
-            <span>Nanthagopal </span><span>S</span>
-          </div>
-          <div class="grocery-admin-contact">
-            Whatsapp : <span>8940918732</span>
-          </div>
-        </div>
-        <div class="grocery-admin-card">
-          <div class="grocery-admin-img">
-            <img src="../../assets/admin.png">
-          </div>
-          <div class="grocery-admin-name">
-            <span>Nanthagopal </span><span>S</span>
-          </div>
-          <div class="grocery-admin-contact">
-            Whatsapp : <span>8940918732</span>
+
+        <div *ngFor = "let admin of admins">
+          <div *ngIf="admin != adminMail">
+            <div class="grocery-admin-card" (click)="this.EditAdmin(admin)"   >
+              <div class="grocery-admin-img">
+                <img src="../../assets/admin.png">
+              </div>
+              <div class="grocery-admin-name">
+                <span>{{admin}}</span>
+              </div>
+              <!-- <div class="grocery-admin-contact">
+                Whatsapp : <span>8940918732</span> 
+              </div> -->
+            </div>
           </div>
         </div>
-        <div class="grocery-admin-card">
-          <div class="grocery-admin-img">
-            <img src="../../assets/admin.png">
-          </div>
-          <div class="grocery-admin-name">
-            <span>Nanthagopal </span><span>S</span>
-          </div>
-          <div class="grocery-admin-contact">
-            Whatsapp : <span>8940918732</span>
-          </div>
-        </div>
-        <div class="grocery-admin-card">
-          <div class="grocery-admin-img">
-            <img src="../../assets/admin.png">
-          </div>
-          <div class="grocery-admin-name">
-            <span>Nanthagopal </span><span>S</span>
-          </div>
-          <div class="grocery-admin-contact">
-            Whatsapp : <span>8940918732</span>
-          </div>
-        </div>
-        <div class="grocery-admin-card">
-          <div class="grocery-admin-img">
-            <img src="../../assets/admin.png">
-          </div>
-          <div class="grocery-admin-name">
-            <span>Nanthagopal </span><span>S</span>
-          </div>
-          <div class="grocery-admin-contact">
-            Whatsapp : <span>8940918732</span>
-          </div>
-        </div>
-        <div class="grocery-admin-card">
-          <div class="grocery-admin-img">
-            <img src="../../assets/admin.png">
-          </div>
-          <div class="grocery-admin-name">
-            <span>Nanthagopal </span><span>S</span>
-          </div>
-          <div class="grocery-admin-contact">
-            Whatsapp : <span>8940918732</span>
-          </div>
-        </div>
+         
+       
       </section>
     </section>
   </section>
@@ -124,7 +88,7 @@
   
   
   
-  <section class="modal" [ngClass]="{ 'is-active': this.isNewAdmin }">
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isNewAdmin }">
     <div class="modal-background">
       <div class="grocery-modal pulled-right create-modal">
         <div class="grocery-modal-header">
@@ -133,34 +97,39 @@
           </div>
           <div class="grocery-modal-title">New Admin</div>
         </div>
-        <div class="grocery-modal-contents">
+        <div class="grocery-modal-contents" [formGroup]="newAdmin">
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="first name">
+            <input formControlName="fname" class="input" type="text" placeholder="first name">
             <label for="firstName" class="grocery-input-label">first name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="last name">
+            <input formControlName="lname" class="input" type="text" placeholder="last name">
             <label for="lastName" class="grocery-input-label">last name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="whatsapp">
+            <input formControlName="whatsapp" class="input" type="text" placeholder="whatsapp">
             <label for="whatsapp" class="grocery-input-label">whatsapp</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="e-mail">
-            <label for="email" class="grocery-input-label">e-mail</label>
+            <input formControlName="email" class="input" type="text" placeholder="e-mail">
+            <label for="email" class="grocery-input-label" >e-mail</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="password">
+            <input formControlName="password" class="input" type="text" placeholder="password">
             <label for="password" class="grocery-input-label">password</label>
           </div>
+           
+          <div class="notification grocery-notification" [ngClass]="{ 'is-active': this.notifyFlag, 'is-success': this.notifyStatus, 'is-danger': !this.notifyStatus && this.notifyStatus !== undefined }">
+            <a class="delete"></a>
+            <p>{{this.notifyMsg}}</p>
+          </div>
         </div>
-        <button class="grocery-modal-footer is-success">Save</button>
+        <button class="grocery-modal-footer is-success" (click)="newAdminSave()">Save</button>
       </div>
     </div>
   </section>
   
-  <section class="modal" [ngClass]="{ 'is-active': this.isNewVendor }">
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isNewVendor }">
     <div class="modal-background">
       <div class="grocery-modal pulled-right create-modal">
         <div class="grocery-modal-header">
@@ -169,190 +138,208 @@
           </div>
           <div class="grocery-modal-title">New Vendor</div>
         </div>
-        <div class="grocery-modal-contents">
+        <div class="grocery-modal-contents" [formGroup]="newVendor">
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="store name">
+            <input formControlName="vendorId" class="input" type="text" placeholder="vendor id">
+            <label for="vendorId" class="grocery-input-label">vendor id</label>
+          </div>
+
+          <div class="grocery-modal-input-holder">
+            <input formControlName="storeName" class="input" type="text" placeholder="store name">
             <label for="storeName" class="grocery-input-label">store name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="first name">
+            <input formControlName="fname" class="input" type="text" placeholder="first name">
             <label for="firstName" class="grocery-input-label">first name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="last name">
+            <input formControlName="lname" class="input" type="text" placeholder="last name">
             <label for="lastName" class="grocery-input-label">last name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="whatsapp">
-            <label for="whatsapp" class="grocery-input-label">whatsapp</label>
+            <input formControlName="email" class="input" type="text" placeholder="e-mail">
+            <label for="email" class="grocery-input-label" >e-mail</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="e-mail">
-            <label for="email" class="grocery-input-label">e-mail</label>
-          </div>
-          <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="password">
+            <input formControlName="password" class="input" type="text" placeholder="password">
             <label for="password" class="grocery-input-label">password</label>
           </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="whatsapp" class="input" type="text" placeholder="whatsapp">
+            <label for="whatsapp" class="grocery-input-label">whatsapp</label>
+          </div>
+
         </div>
-        <button class="grocery-modal-footer is-success">Save</button>
+        <button class="grocery-modal-footer is-success" (click)="newVendorSave()" >Save</button>
       </div>
     </div>
   </section>
   
   
-  <section class="modal" [ngClass]="{ 'is-active': this.isEditAdmin }">
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isEditAdmin }">
     <div class="modal-background">
       <div class="grocery-modal pulled-right edit-modal">
         <div class="grocery-modal-header">
-          <div class="grocery-modal-back" (click)="this.EditAdmin()">
+          <div class="grocery-modal-back" (click)="this.EditAdmin(null)">
             <i class="fas fa-arrow-left"></i>
           </div>
           <div class="grocery-modal-title">Edit Admin</div>
         </div>
         <div class="grocery-modal-delete">
-          <button class="grocery-modal-delete-btn"><span class="span-cls">Delete</span><i
+          <button class="grocery-modal-delete-btn" (click)="deleteAdmin()"><span class="span-cls" >Delete</span><i
               class="fas fa-trash-alt"></i></button>
         </div>
-        <div class="grocery-modal-contents">
+        <div class="grocery-modal-contents" [formGroup]="editAdmin">
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="first name">
-            <label for="firstName" class="grocery-input-label">first name</label>
+            <input formControlName="fname" class="input" type="text" placeholder="first name">
+            <label for="firstName" class="grocery-input-label"></label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="last name">
+            <input formControlName="lname" class="input" type="text" placeholder="last name">
             <label for="lastName" class="grocery-input-label">last name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="whatsapp">
+            <input formControlName="whatsapp" class="input" type="text" placeholder="whatsapp">
             <label for="whatsapp" class="grocery-input-label">whatsapp</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="e-mail">
+            <input formControlName="email" class="input" type="text" disabled placeholder="e-mail">
             <label for="email" class="grocery-input-label">e-mail</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="password">
+            <input formControlName="password" class="input" type="text" placeholder="password">
             <label for="password" class="grocery-input-label">password</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="door no">
+            <input formControlName="doorNo" class="input" type="text" placeholder="door no">
             <label for="doorNo" class="grocery-input-label">door no</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="address line 1">
+            <input formControlName="addressLine1" class="input" type="text" placeholder="address line 1">
             <label for="addressLine1" class="grocery-input-label">address line 1</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="address line 2 [optional]">
+            <input formControlName="addressLine2" class="input" type="text" placeholder="address line 2 [optional]">
             <label for="addressLine2" class="grocery-input-label">address line 2</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="city">
+            <input formControlName="city" class="input" type="text" placeholder="city">
             <label for="city" class="grocery-input-label">city</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="district">
+            <input formControlName="district" class="input" type="text" placeholder="district">
             <label for="district" class="grocery-input-label">district</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="postal code">
+            <input formControlName="pinCode" class="input" type="text" placeholder="postal code">
             <label for="pincode" class="grocery-input-label">postal code</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="country">
+            <input formControlName="country" class="input" type="text" placeholder="country">
             <label for="country" class="grocery-input-label">country</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="mobile [Alt]">
+            <input formControlName="mobile" class="input" type="text" placeholder="mobile [Alt]">
             <label for="mobile" class="grocery-input-label">mobile</label>
           </div>
+          <div class="notification grocery-notification" [ngClass]="{ 'is-active': this.notifyFlag, 'is-success': this.notifyStatus, 'is-danger': !this.notifyStatus && this.notifyStatus !== undefined }">
+            <a class="delete"></a>
+            <p>{{this.notifyMsg}}</p>
+          </div>
         </div>
-        <button class="grocery-modal-footer is-success">Save</button>
+        <button class="grocery-modal-footer is-success" (click)="editAdminSave()">Save</button>
       </div>
     </div>
   </section>
   
-  <section class="modal" [ngClass]="{ 'is-active': this.isEditVendor }">
+  <section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isEditVendor }">
     <div class="modal-background">
       <div class="grocery-modal pulled-right edit-modal">
         <div class="grocery-modal-header">
-          <div class="grocery-modal-back" (click)="this.EditVendor()">
+          <div class="grocery-modal-back" (click)="this.EditVendor(null)">
             <i class="fas fa-arrow-left"></i>
           </div>
           <div class="grocery-modal-title">Edit Vendor</div>
         </div>
         <div class="grocery-modal-delete">
-          <button class="grocery-modal-delete-btn"><span class="span-cls">Delete</span><i
+          <button class="grocery-modal-delete-btn" (click)="deleteVendor()"><span class="span-cls">Delete</span><i
               class="fas fa-trash-alt"></i></button>
         </div>
-        <div class="grocery-modal-contents">
+        <div class="grocery-modal-contents" [formGroup]="editVendor">
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="store name">
+            <input formControlName="vendorId" class="input" type="text" placeholder="vendor id">
+            <label for="vendorId" class="grocery-input-label">vendor id</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="storeName" class="input" type="text" placeholder="store name">
             <label for="storeName" class="grocery-input-label">store name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="first name">
+            <input formControlName="createdBy" disabled class="input" type="text" placeholder="createdby">
+            <label for="createdBy" class="grocery-input-label">createdby</label>
+          </div>
+          <div class="grocery-modal-input-holder">
+            <input formControlName="fname" class="input" type="text" placeholder="first name">
             <label for="firstName" class="grocery-input-label">first name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="last name">
+            <input formControlName="lname" class="input" type="text" placeholder="last name">
             <label for="lastName" class="grocery-input-label">last name</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="whatsapp">
+            <input formControlName="whatsapp" class="input" type="text" placeholder="whatsapp">
             <label for="whatsapp" class="grocery-input-label">whatsapp</label>
           </div>
-          <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="e-mail">
+          <!-- <div class="grocery-modal-input-holder">
+            <input formControlName="email" class="input" type="text" placeholder="e-mail">
             <label for="email" class="grocery-input-label">e-mail</label>
-          </div>
-          <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="password">
+          </div> -->
+          <!-- <div class="grocery-modal-input-holder">
+            <input  class="input" type="text" placeholder="password">
             <label for="password" class="grocery-input-label">password</label>
-          </div>
+          </div> -->
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="door no">
+            <input formControlName="doorNo" class="input" type="text" placeholder="door no">
             <label for="doorNo" class="grocery-input-label">door no</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="address line 1">
+            <input formControlName="addressLine1" class="input" type="text" placeholder="address line 1">
             <label for="addressLine1" class="grocery-input-label">address line 1</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="address line 2 [optional]">
+            <input formControlName="addressLine2" class="input" type="text" placeholder="address line 2 [optional]">
             <label for="addressLine2" class="grocery-input-label">address line 2</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="city">
+            <input formControlName="city" class="input" type="text" placeholder="city">
             <label for="city" class="grocery-input-label">city</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="district">
+            <input formControlName="district" class="input" type="text" placeholder="district">
             <label for="district" class="grocery-input-label">district</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="postal code">
+            <input  formControlName="pinCode" class="input" type="text" placeholder="postal code">
             <label for="pincode" class="grocery-input-label">postal code</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="country">
+            <input formControlName="country" class="input" type="text" placeholder="country">
             <label for="country" class="grocery-input-label">country</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="mobile [Alt]">
+            <input formControlName="mobile" class="input" type="text" placeholder="mobile [Alt]">
             <label for="mobile" class="grocery-input-label">mobile</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="delivery window">
+            <input formControlName="deliveryWindow" class="input" type="text" placeholder="delivery window">
             <label for="deliveryWindow" class="grocery-input-label">delivery window</label>
           </div>
           <div class="grocery-modal-input-holder">
-            <input class="input" type="text" placeholder="pickup window">
+            <input formControlName="pickupWindow" class="input" type="text" placeholder="pickup window">
             <label for="pickupWindow" class="grocery-input-label">pickup window</label>
           </div>
         </div>
-        <button class="grocery-modal-footer is-success">Save</button>
+        <button class="grocery-modal-footer is-success" (click)="editVendorSave()">Save</button>
       </div>
     </div>
   </section>

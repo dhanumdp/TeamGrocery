@@ -75,7 +75,7 @@ app.post('/user/login', (req, res) => {
                     success: true,
                     message: 'User Logged in successfully.',
                     token : token, 
-                    user : {email :userDoc.email},
+                    user : userDoc.email,
                     role: userDoc.role
                 });
             } else {

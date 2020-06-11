@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import { VadminService } from '../../services/vadmin.service';
 import {Inventory} from '../../../../Backend/models/inventory.js'
+import { UserService } from 'src/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vendor-admin',
@@ -9,6 +11,16 @@ import {Inventory} from '../../../../Backend/models/inventory.js'
   styleUrls: ['./vendor-admin.component.scss']
 })
 export class VendorAdminComponent implements OnInit {
+
+  LoggedIn : boolean;
+  LocalStorageValue;
+
+  adminMail; //for getting currently login admin's mail id
+  admins:any = []; // for getting current vendor's admins
+
+  storeName;
+  vendorId;
+
   isInventory: boolean;
   isProfile: boolean;
 
@@ -37,14 +49,37 @@ export class VendorAdminComponent implements OnInit {
     MRP: new FormControl(null)
   });
 
-  constructor(private vadminService: VadminService) {
+  constructor(private vadminService: VadminService, private userService : UserService, private router: Router) {
     this.Inventory();
-    this.vadminService.setVendorId('VR-100');
+   
   }
 
   ngOnInit() {
+    this.LocalStorageValue = localStorage.getItem('user');
+    if(this.LocalStorageValue==null)
+    {
+      this.LoggedIn=false;
+    }
+    else
+    {
+      this.LoggedIn=true;
+      this.adminMail = localStorage.getItem('user').replace(/"/g,"");
+      this.loadVendor();
+      this.getInventory();
+    }
   }
 
+  loadVendor()
+  {
+    this.getInventory();
+    this.vadminService.getVendorDetails(this.adminMail).subscribe((res)=>{
+      // console.log(res);
+      this.admins=res[0]['vendorAdmins']
+      this.storeName = res[0]['storeName'];
+      this.vendorId=res[0]['vendorId'];
+    })
+    
+  }
   newProductSave() {
     console.log(this.newProduct.value);
     return this.vadminService.newProduct(this.vendorInventory._id, this.newProduct.value).subscribe((res: any) => {
@@ -54,6 +89,7 @@ export class VendorAdminComponent implements OnInit {
         this.NewProduct();
       }
     });
+
   }
 
   editProductSave() {
@@ -78,8 +114,9 @@ export class VendorAdminComponent implements OnInit {
 
   Inventory() {
     this.isInventory = true;
-    this.isProfile = false;
     this.getInventory();
+    this.isProfile = false;
+  
   }
 
   Profile() {
@@ -89,6 +126,7 @@ export class VendorAdminComponent implements OnInit {
   }
 
   NewProduct() {
+    this.getInventory();
     this.isNewProduct = !this.isNewProduct;
     this.newProduct.reset();
   }
@@ -113,14 +151,37 @@ export class VendorAdminComponent implements OnInit {
 
 
   getInventory() {
-    this.vadminService.getInventory(this.vadminService.getVendorId()).subscribe((res: any) => {
-      if (res.success) {
+    this.vadminService.getInventory(this.vendorId).subscribe((res: any) => {
+      
+      if(res.doc)  // if there is inventory exists in the current vendor
+      {
+        if (res.success) {
         this.vendorInventory = res.doc;
         console.log(this.vendorInventory);
       } else {
         console.log(res.message);
       }
+      }
+      else
+      {
+           // if there is no inventory exists in the current vendor, we have to create it.  
+          this.vadminService.createInventory(this.vendorId).subscribe((res:any)=>{
+            if (res.success) {
+              this.vendorInventory = res.doc;
+              console.log(this.vendorInventory);
+            } else {
+              console.log(res.message);
+            }
+          })
+      }
+      
     });
+  }
+
+  LogOut()
+  {
+   this.userService.logout();
+   this.router.navigate(['/GrocerySOS/Home']); 
   }
 
 }

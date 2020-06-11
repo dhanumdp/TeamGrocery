@@ -155,6 +155,7 @@
     padding: 10px;
     position: relative;
     margin: 0 auto;
+  
 
     input {
       border-radius: 25px;
@@ -762,4 +763,17 @@
 
   }
 
+}
+
+.grocery-notification {
+  position: absolute;
+  display: none;
+  
+  margin-top: 30px;
+  justify-content: center;
+  width: 90%;
+  
+  &.is-active {
+    display: flex;
+  }
 }

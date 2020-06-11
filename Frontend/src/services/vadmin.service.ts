@@ -8,16 +8,26 @@ export class VadminService {
 
   constructor(private webReqService: WebRequestService) { }
 
-  setVendorId(vendorId: string) {
-    localStorage.setItem('vendorId', vendorId);
-  }
+  // setVendorId(vendorId: string) {
+  //   localStorage.setItem('vendorId', vendorId);
+  // }
 
-  getVendorId() {
-    return localStorage.getItem('vendorId');
+  // getVendorId() {
+  //   return localStorage.getItem('vendorId');
+  // }
+
+  getVendorDetails(email : string)
+  {
+    return this.webReqService.post('vendorAdmin/getVendor', {email});
   }
 
   removeVendorId() {
     localStorage.removeItem('vendorId');
+  }
+
+  createInventory(vendorId:string)
+  {
+    return this.webReqService.post('vendorAdmin/createInventory',{vendorId});
   }
 
   getInventory(vendorId: string) {

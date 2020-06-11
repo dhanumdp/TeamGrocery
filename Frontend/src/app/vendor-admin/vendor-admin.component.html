@@ -1,4 +1,10 @@
-<section class="grocery-section-main">
+<div *ngIf="!LoggedIn" style="text-align: center; ">
+  <p class="title is-1 is-spaced" >Illegal Access!!</p>
+<p class="subtitle is-3">You Must Login to Access it.</p>
+</div>
+
+
+<section *ngIf="LoggedIn" class="grocery-section-main">
   <section class="grocery-section-col">
     <div class="grocery-profile-card">
       <img class="grocery-profile-img" src="../../../assets/shopping.png">
@@ -6,19 +12,21 @@
     <div class="grocery-side-nav">
       <a class="grocery-side-nav-item" (click)="this.Inventory()" [ngClass]="{ 'is-active': this.isInventory }">Inventory</a>
       <a class="grocery-side-nav-item" (click)="this.Profile()" [ngClass]="{ 'is-active': this.isProfile }">Profile</a>
-      <a class="grocery-side-nav-logout">Logout<i class="fas fa-sign-out-alt"></i></a>
+      <a class="grocery-side-nav-logout" (click)="LogOut()">Logout<i class="fas fa-sign-out-alt"></i></a>
     </div>
   </section>
   <section class="grocery-section-col disp-grow">
     <div class="navbar" *ngIf="this.isInventory" >
       <div class="grocery-search-bar">
-        <input list="pincode" class="input" placeholder="Type here to search">
-        <datalist id="pincode">
-          <option value="626125"></option>
-          <option value="626123"></option>
-        </datalist>
-        <button class="button"><i class="fas fa-map-marker-alt"></i></button>
-      </div>
+           
+        <h1 class="subtitle" style="text-align: center; cursor: default;" s>{{vendorId}}  <i class="fas fa-map-marker-alt"></i>  {{storeName}}</h1>
+      <!-- <input list="pincode" class="input" placeholder="Type here to search">
+      <datalist id="pincode">
+        <option value="626125"></option>
+        <option value="626123"></option>
+      </datalist>-->
+      <!-- <button class="button"><i class="fas fa-map-marker-alt"></i></button>  -->
+    </div> 
       <button class="navbar-end" (click)="this.NewProduct()">
         <span>Add Product</span>
       </button>
@@ -42,7 +50,7 @@
 
 
 
-<section class="modal" [ngClass]="{ 'is-active': this.isNewProduct }">
+<section  *ngIf="LoggedIn"class="modal" [ngClass]="{ 'is-active': this.isNewProduct }">
   <div class="modal-background">
     <div class="grocery-modal pulled-right create-modal">
       <div class="grocery-modal-header">
@@ -83,7 +91,7 @@
 </section>
 
 
-<section class="modal" [ngClass]="{ 'is-active': this.isEditProduct }">
+<section *ngIf="LoggedIn" class="modal" [ngClass]="{ 'is-active': this.isEditProduct }">
   <div class="modal-background">
     <div class="grocery-modal pulled-right edit-modal">
       <div class="grocery-modal-header">
