@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import {SadminService } from '../../services/super-admin.service';
 import { Franchise } from '../../../../Backend/models/franchise.js';
 import {User} from '../../../../Backend/models/users.js'
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-super-admin',
@@ -23,9 +24,11 @@ export class SuperAdminComponent implements OnInit {
 
   currentFranchiseId: string;
   currentAdminId: string;
+  currentAdmin:string;
 
   franchise: Franchise[];
   admins: User[];
+  
 
 
   isNewFranchise: boolean;
@@ -39,7 +42,12 @@ export class SuperAdminComponent implements OnInit {
     city: new FormControl(null),
     district: new FormControl(null),
     country: new FormControl(null),
-    franchiseName: new FormControl(null)
+    franchiseName: new FormControl(null),
+    fname: new FormControl(null),
+    lname: new FormControl(null),
+    whatsapp: new FormControl(null),
+    email : new FormControl(null),
+    password : new FormControl(null),
   });
 
   editFranchise = new FormGroup({
@@ -47,7 +55,9 @@ export class SuperAdminComponent implements OnInit {
     city: new FormControl(null),
     district: new FormControl(null),
     country: new FormControl(null),
-    franchiseName: new FormControl(null)
+    franchiseName: new FormControl(null),
+    createdBy : new FormControl(null)
+   
   });
 
   newAdmin = new FormGroup({
@@ -90,6 +100,7 @@ export class SuperAdminComponent implements OnInit {
       else
       {
         this.LoggedIn=true;
+        this.currentAdmin = localStorage.getItem('user').replace(/"/g,"");
       }
 
   }
@@ -101,14 +112,16 @@ export class SuperAdminComponent implements OnInit {
     return this.sadminService.fetchAllFranchise().subscribe((franchiseDoc: Franchise[]) => {
       this.franchise = franchiseDoc;
     });
+
   }
 
   Admin() {
     this.isFranchise = false;
     this.isAdmin = true;
     this.isProfile = false;
-    return this.sadminService.fetchAllAdmins().subscribe((adminDoc: User[]) => {
+    return this.sadminService.fetchSuperAdmins().subscribe((adminDoc: User[]) => {
       this.admins = adminDoc;
+      console.log(this.admins)
     });
   }
 
@@ -169,7 +182,8 @@ export class SuperAdminComponent implements OnInit {
           'city': franchiseDoc.city,
           'district': franchiseDoc.district,
           'country': franchiseDoc.country,
-          'franchiseName': franchiseDoc.franchiseName
+          'franchiseName': franchiseDoc.franchiseName,
+          'createdBy':franchiseDoc.createdBy
         });
       }
     });
@@ -177,13 +191,11 @@ export class SuperAdminComponent implements OnInit {
 
   EditFranchise() {
     this.isEditFranchise = !this.isEditFranchise;
-    this.editFranchise.reset();
-    this.currentFranchiseId = null;
+      this.editFranchise.reset();
+      this.currentFranchiseId = null; 
   }
 
   newAdminSave() {
-    this.newAdmin.addControl('role', new FormControl(null));
-    this.newAdmin.get('role').setValue('franchiseAdmin');
     return this.sadminService.newAdmin(this.newAdmin.value).subscribe((res: any) => {
       console.log(res);
       this.NewAdmin();
@@ -192,15 +204,15 @@ export class SuperAdminComponent implements OnInit {
   }
 
   editAdminSave() {
-    return this.sadminService.editAdmin(this.editAdmin.value, this.currentAdminId).subscribe((res: any) => {
+    return this.sadminService.editAdmin(this.editAdmin.value).subscribe((res: any) => {
       console.log(res);
       this.EditAdmin();
+      this.Admin();
     });
   }
 
   newFranchiseSave() {
-    this.newFranchise.addControl('createdBy', new FormControl(null));
-    this.newFranchise.get('createdBy').setValue(this.userService.getUserId());
+   
     this.sadminService.newFranchise(this.newFranchise.value).subscribe((res) => {
       console.log(res);
       this.NewFranchise();
@@ -209,10 +221,31 @@ export class SuperAdminComponent implements OnInit {
   }
 
   editFranchiseSave() {
+   
+    this.editFranchise.get('createdBy').setValue(this.currentAdmin);
     return this.sadminService.editFranchise(this.editFranchise.value, this.currentFranchiseId).subscribe((res: any) => {
       console.log(res);
       this.EditFranchise();
     });
+  }
+
+  deleteAdmin()
+  {
+    return this.sadminService.deleteAdmin(this.editAdmin.get('email').value).subscribe((res)=>{
+      console.log(res);
+      this.EditAdmin();
+      this.Admin();
+    })
+  }
+
+  deleteFranchise()
+  {
+    console.log("hai")
+    return this.sadminService.deleteFranchise(this.editFranchise.get('pinCode').value).subscribe((res)=>{
+      console.log(res);
+      this.EditFranchise();
+      this.Franchise();
+    })
   }
 
 

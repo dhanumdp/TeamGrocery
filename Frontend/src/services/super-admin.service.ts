@@ -26,19 +26,35 @@ export class SadminService {
   }
 
   newAdmin(data: Object) {
-    return this.webReqService.post('superAdmin/addFranchiseAdmin', data);
+    return this.webReqService.post('superAdmin/addSuperAdmin', data);
   }
 
-  editAdmin(data: Object, _id: string) {
-    return this.webReqService.post(`superAdmin/editFranchiseAdmin/${_id}`, data);
+  editAdmin(data: Object) {
+    return this.webReqService.post(`superAdmin/editSuperAdmin`, data);
   }
 
   fetchAllAdmins() {
     return this.webReqService.get(`superAdmin/franchiseAdmin/fetch/all`);
   }
 
+  fetchSuperAdmins()
+  {
+    return this.webReqService.get('superAdmin/getSuperAdmins');
+  }
+
   fetchAdmin(_id: string) {
     return this.webReqService.get(`superAdmin/franchiseAdmin/fetch/${_id}`);
   }
 
+
+  deleteAdmin(email : string)
+  {
+    return this.webReqService.post('superAdmin/deleteSuperAdmin', {email});
+  }
+
+  deleteFranchise(pincode : string)
+  {
+    return this.webReqService.post(`superAdmin/deleteFranchise/${pincode}`, {});
+  }
 }
+

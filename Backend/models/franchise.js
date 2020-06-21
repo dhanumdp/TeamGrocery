@@ -29,7 +29,7 @@ const Franchise = mongoose.model('Franchise',{
     },
     createdBy: {
         type: String, // SuperAdmin
-        required: true
+        
     },
     franchiseAdmins: [{
         type:  String //FranchiseAdmin added by super admin & franchise admin

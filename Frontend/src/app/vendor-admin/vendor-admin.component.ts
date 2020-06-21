@@ -51,10 +51,10 @@ export class VendorAdminComponent implements OnInit {
 
   constructor(private vadminService: VadminService, private userService : UserService, private router: Router) {
     this.Inventory();
-   
   }
 
   ngOnInit() {
+   
     this.LocalStorageValue = localStorage.getItem('user');
     if(this.LocalStorageValue==null)
     {
@@ -65,18 +65,18 @@ export class VendorAdminComponent implements OnInit {
       this.LoggedIn=true;
       this.adminMail = localStorage.getItem('user').replace(/"/g,"");
       this.loadVendor();
-      this.getInventory();
     }
   }
 
   loadVendor()
   {
-    this.getInventory();
+    
     this.vadminService.getVendorDetails(this.adminMail).subscribe((res)=>{
-      // console.log(res);
+  
       this.admins=res[0]['vendorAdmins']
       this.storeName = res[0]['storeName'];
       this.vendorId=res[0]['vendorId'];
+      this.getInventory();
     })
     
   }
@@ -86,7 +86,7 @@ export class VendorAdminComponent implements OnInit {
       if (res) {
         console.log(res.message);
         this.getInventory();
-        this.NewProduct();
+        this.newProduct.reset();
       }
     });
 
@@ -114,9 +114,8 @@ export class VendorAdminComponent implements OnInit {
 
   Inventory() {
     this.isInventory = true;
-    this.getInventory();
-    this.isProfile = false;
   
+    this.isProfile = false;
   }
 
   Profile() {
@@ -126,9 +125,9 @@ export class VendorAdminComponent implements OnInit {
   }
 
   NewProduct() {
-    this.getInventory();
+    
     this.isNewProduct = !this.isNewProduct;
-    this.newProduct.reset();
+   
   }
 
   EditProduct(item: any) {
@@ -151,8 +150,7 @@ export class VendorAdminComponent implements OnInit {
 
 
   getInventory() {
-    this.vadminService.getInventory(this.vendorId).subscribe((res: any) => {
-      
+    /*this.vadminService.getInventory(this.vendorId).subscribe((res: any) => {
       if(res.doc)  // if there is inventory exists in the current vendor
       {
         if (res.success) {
@@ -175,6 +173,15 @@ export class VendorAdminComponent implements OnInit {
           })
       }
       
+    });*/
+    this.vadminService.getInventory(this.vendorId).subscribe((res: any) => {
+      if (res.success) {
+        this.vendorInventory = res.doc;
+        console.log(res.doc);
+      } else {
+        console.log(res.message);
+        this.getInventory();
+      }
     });
   }
 

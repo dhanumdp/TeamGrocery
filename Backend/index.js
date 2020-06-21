@@ -120,6 +120,7 @@ app.post('/user/login', (req, res) => {
  * purpose: used to register new customer / vendor / fadmin.
  */
 
+ 
  app.post('/user/register', (req, res) => {
     const fname = req.body.fname;
     const lname = req.body.lname;
@@ -127,9 +128,7 @@ app.post('/user/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const role = req.body.role;
-
-  
-
+    
     User.findOne({ 'email': email }).then((userDoc) => {
         if (userDoc) {
             res.send({ 

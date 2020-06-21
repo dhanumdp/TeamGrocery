@@ -558,36 +558,35 @@
     .grocery-franchise-details {
       display: flex;
       flex-direction: row;
-
+     
       .grocery-franchise-admins {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         width: 125px;
-
         i {
           padding: 5px;
         }
-
         span {
+          
           font-variant-caps: all-petite-caps;
         }
       }
 
-      .grocery-franchise-vendors {
-        width: 125px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      // .grocery-franchise-vendors {
+      //   width: 125px;
+      //   white-space: nowrap;
+      //   overflow: hidden;
+      //   text-overflow: ellipsis;
 
-        i {
-          padding: 5px;
-        }
+      //   i {
+      //     padding: 5px;
+      //   }
 
-        span {
-          font-variant-caps: all-petite-caps;
-        }
-      }
+      //   span {
+      //     font-variant-caps: all-petite-caps;
+      //   }
+      // }
 
     }
 

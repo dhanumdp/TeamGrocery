@@ -104,7 +104,7 @@ export class FranchiseAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
     this.LocalStorageValue = localStorage.getItem('user');
     if(this.LocalStorageValue==null)
     {
@@ -113,6 +113,7 @@ export class FranchiseAdminComponent implements OnInit {
     else
     {
       this.LoggedIn=true;
+
       this.adminMail = localStorage.getItem('user').replace(/"/g,"");
       this.loadFranchise();
     }
